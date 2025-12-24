@@ -1,0 +1,9 @@
+#!/bin/sh
+# Initialize OpenSpeedTest
+
+# Ensure log directory exists
+mkdir -p /var/log/nginx
+chown bsd:bsd /var/log/nginx
+
+# Ensure www owns the speedtest files
+chown -R bsd:bsd /usr/local/www/openspeedtest
