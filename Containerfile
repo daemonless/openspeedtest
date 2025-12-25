@@ -3,7 +3,7 @@ FROM ghcr.io/daemonless/nginx-base:${BASE_VERSION}
 
 ARG FREEBSD_ARCH=amd64
 ARG PACKAGES="ca_root_nss"
-LABEL org.opencontainers.image.title="openspeedtest" \
+LABEL org.opencontainers.image.title="OpenSpeedTest" \
     org.opencontainers.image.description="HTML5 Network Speed Test on FreeBSD" \
     org.opencontainers.image.source="https://github.com/daemonless/openspeedtest" \
     org.opencontainers.image.url="https://openspeedtest.com/" \
