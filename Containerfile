@@ -21,6 +21,8 @@ LABEL org.opencontainers.image.title="OpenSpeedTest" \
 
 # Download OpenSpeedTest files
 RUN pkg update && pkg install -y ${PACKAGES} && \
+    pkg clean -ay && \
+    rm -rf /var/cache/pkg/* /var/db/pkg/repos/* && \
     fetch -o /tmp/speedtest.tar.gz https://github.com/openspeedtest/Speed-Test/archive/refs/heads/main.tar.gz && \
     mkdir -p /usr/local/www/openspeedtest && \
     tar -xzf /tmp/speedtest.tar.gz -C /usr/local/www/openspeedtest --strip-components=1 && \
