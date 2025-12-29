@@ -16,7 +16,7 @@ LABEL org.opencontainers.image.title="OpenSpeedTest" \
     io.daemonless.base="nginx" \
     io.daemonless.category="Utilities" \
     io.daemonless.upstream-mode="github" \
-    io.daemonless.upstream-repo="openspeedtest/OpenSpeedTest" \
+    io.daemonless.upstream-repo="openspeedtest/Docker-Image" \
     io.daemonless.packages="${PACKAGES}"
 
 # Download OpenSpeedTest files
