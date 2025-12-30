@@ -1,13 +1,16 @@
 ARG BASE_VERSION=15
+ARG OPENSPEEDTEST_VERSION=2.0
 FROM ghcr.io/daemonless/nginx-base:${BASE_VERSION}
 
 ARG FREEBSD_ARCH=amd64
+ARG OPENSPEEDTEST_VERSION
 ARG PACKAGES="ca_root_nss"
 LABEL org.opencontainers.image.title="OpenSpeedTest" \
     org.opencontainers.image.description="HTML5 Network Speed Test on FreeBSD" \
     org.opencontainers.image.source="https://github.com/daemonless/openspeedtest" \
     org.opencontainers.image.url="https://openspeedtest.com/" \
     org.opencontainers.image.documentation="https://github.com/openspeedtest/Speed-Test" \
+    org.opencontainers.image.version="${OPENSPEEDTEST_VERSION}" \
     org.opencontainers.image.licenses="MIT" \
     org.opencontainers.image.vendor="daemonless" \
     org.opencontainers.image.authors="daemonless" \
@@ -24,9 +27,10 @@ RUN pkg update && pkg install -y ${PACKAGES} && \
     pkg clean -ay && \
     rm -rf /var/cache/pkg/* /var/db/pkg/repos/* && \
     fetch -o /tmp/speedtest.tar.gz https://github.com/openspeedtest/Speed-Test/archive/refs/heads/main.tar.gz && \
-    mkdir -p /usr/local/www/openspeedtest && \
+    mkdir -p /usr/local/www/openspeedtest /app && \
     tar -xzf /tmp/speedtest.tar.gz -C /usr/local/www/openspeedtest --strip-components=1 && \
     rm /tmp/speedtest.tar.gz && \
+    echo "${OPENSPEEDTEST_VERSION}" > /app/version && \
     chown -R bsd:bsd /usr/local/www/openspeedtest
 
 # Copy custom nginx config for OpenSpeedTest
