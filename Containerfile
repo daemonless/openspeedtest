@@ -5,7 +5,7 @@ FROM ghcr.io/daemonless/nginx-base:${BASE_VERSION}
 ARG FREEBSD_ARCH=amd64
 ARG OPENSPEEDTEST_VERSION
 ARG PACKAGES="ca_root_nss"
-ARG UPSTREAM_URL="https://api.github.com/repos/openspeedtest/Speed-Test/releases/latest"
+ARG UPSTREAM_URL="https://api.github.com/repos/openspeedtest/Docker-Image/releases/latest"
 ARG UPSTREAM_JQ=".tag_name"
 
 LABEL org.opencontainers.image.title="OpenSpeedTest" \
