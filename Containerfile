@@ -7,6 +7,9 @@ ARG OPENSPEEDTEST_VERSION
 ARG PACKAGES="ca_root_nss"
 ARG UPSTREAM_URL="https://api.github.com/repos/openspeedtest/Docker-Image/releases/latest"
 ARG UPSTREAM_JQ=".tag_name"
+ARG HEALTHCHECK_ENDPOINT="http://localhost:3000/daemonless-ping"
+
+ENV HEALTHCHECK_URL="${HEALTHCHECK_ENDPOINT}"
 
 LABEL org.opencontainers.image.title="OpenSpeedTest" \
     org.opencontainers.image.description="HTML5 Network Speed Test on FreeBSD" \
@@ -23,6 +26,7 @@ LABEL org.opencontainers.image.title="OpenSpeedTest" \
     io.daemonless.category="Utilities" \
     io.daemonless.upstream-url="${UPSTREAM_URL}" \
     io.daemonless.upstream-jq="${UPSTREAM_JQ}" \
+    io.daemonless.healthcheck-url="${HEALTHCHECK_ENDPOINT}" \
     io.daemonless.packages="${PACKAGES}"
 
 # Download OpenSpeedTest files
