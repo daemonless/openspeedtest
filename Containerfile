@@ -5,6 +5,9 @@ FROM ghcr.io/daemonless/nginx-base:${BASE_VERSION}
 ARG FREEBSD_ARCH=amd64
 ARG OPENSPEEDTEST_VERSION
 ARG PACKAGES="ca_root_nss"
+ARG UPSTREAM_URL="https://api.github.com/repos/openspeedtest/Speed-Test/releases/latest"
+ARG UPSTREAM_SED="s/.*\"tag_name\":\"\\([^\"]*\\)\".*/\\1/p"
+
 LABEL org.opencontainers.image.title="OpenSpeedTest" \
     org.opencontainers.image.description="HTML5 Network Speed Test on FreeBSD" \
     org.opencontainers.image.source="https://github.com/daemonless/openspeedtest" \
@@ -18,8 +21,8 @@ LABEL org.opencontainers.image.title="OpenSpeedTest" \
     io.daemonless.arch="${FREEBSD_ARCH}" \
     io.daemonless.base="nginx" \
     io.daemonless.category="Utilities" \
-    io.daemonless.upstream-mode="github" \
-    io.daemonless.upstream-repo="openspeedtest/Docker-Image" \
+    io.daemonless.upstream-url="${UPSTREAM_URL}" \
+    io.daemonless.upstream-sed="${UPSTREAM_SED}" \
     io.daemonless.packages="${PACKAGES}"
 
 # Download OpenSpeedTest files
