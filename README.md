@@ -1,65 +1,84 @@
-# openspeedtest
+# OpenSpeedTest
 
-Free and open-source HTML5 network speed test.
+Self-hosted HTML5 Network Speed Test on FreeBSD.
 
-## Environment Variables
+| | |
+|---|---|
+| **Port** | 3005 |
+| **Registry** | `ghcr.io/daemonless/openspeedtest` |
+| **Source** | [https://github.com/openspeedtest/Speed-Test](https://github.com/openspeedtest/Speed-Test) |
+| **Website** | [https://openspeedtest.com/](https://openspeedtest.com/) |
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `PUID` | User ID for the application process | `1000` |
-| `PGID` | Group ID for the application process | `1000` |
-| `TZ` | Timezone for the container | `UTC` |
-| `S6_LOG_ENABLE` | Enable/Disable file logging | `1` |
-| `S6_LOG_MAX_SIZE` | Max size per log file (bytes) | `1048576` |
-| `S6_LOG_MAX_FILES` | Number of rotated log files to keep | `10` |
+## Deployment
 
-## Logging
-
-This image uses `s6-log` for internal log rotation.
-- **System Logs**: Captured from console and stored at `/config/logs/daemonless/openspeedtest/`.
-- **Application Logs**: Managed by the app and typically found in `/config/logs/`.
-- **Podman Logs**: Output is mirrored to the console, so `podman logs` still works.
-
-## Quick Start
-
-```bash
-podman run -d --name openspeedtest \
-  -p 3000:3000 \
-  ghcr.io/daemonless/openspeedtest:latest
-```
-
-Access at: http://localhost:3000
-
-## podman-compose
+### Podman Compose
 
 ```yaml
 services:
   openspeedtest:
     image: ghcr.io/daemonless/openspeedtest:latest
     container_name: openspeedtest
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=UTC
+    volumes:
     ports:
-      - 3000:3000
+      - 3005:3005
     restart: unless-stopped
 ```
 
-## Tags
+### Podman CLI
 
-| Tag | Source | Description |
-|-----|--------|-------------|
-| `:latest` | [Upstream Releases](https://github.com/openspeedtest/Speed-Test) | Latest from git |
+```bash
+podman run -d --name openspeedtest \
+  -p 3005:3005 \
+  -e PUID=@PUID@ \
+  -e PGID=@PGID@ \
+  -e TZ=@TZ@ \
+  ghcr.io/daemonless/openspeedtest:latest
+```
+Access at: `http://localhost:3005`
 
-## Ports
+### Ansible
 
-| Port | Description |
+```yaml
+- name: Deploy openspeedtest
+  containers.podman.podman_container:
+    name: openspeedtest
+    image: ghcr.io/daemonless/openspeedtest:latest
+    state: started
+    restart_policy: always
+    env:
+      PUID: "1000"
+      PGID: "1000"
+      TZ: "UTC"
+    ports:
+      - "3005:3005"
+```
+
+## Configuration
+
+### Environment Variables
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `PUID` | `1000` | User ID for the application process |
+| `PGID` | `1000` | Group ID for the application process |
+| `TZ` | `UTC` | Timezone for the container |
+
+### Volumes
+
+| Path | Description |
 |------|-------------|
-| 3000 | Web UI |
+
+### Ports
+
+| Port | Protocol | Description |
+|------|----------|-------------|
+| `3005` | TCP |  |
 
 ## Notes
 
-- **Base:** Built on `ghcr.io/daemonless/nginx-base-image` (FreeBSD)
-- **Storage:** No persistent storage required (client-side only)
-
-## Links
-
-- [Website](https://openspeedtest.com/)
-- [GitHub](https://github.com/openspeedtest/Speed-Test)
+- **User:** `bsd` (UID/GID set via PUID/PGID)
+- **Base:** Built on `ghcr.io/daemonless/base` (FreeBSD)

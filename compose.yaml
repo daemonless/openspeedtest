@@ -1,0 +1,35 @@
+name: openspeedtest
+
+x-daemonless:
+  title: "OpenSpeedTest"
+  icon: ":material-speedometer:"
+  category: "Utilities"
+  description: "Self-hosted HTML5 Network Speed Test on FreeBSD."
+  upstream_url: "https://github.com/openspeedtest/Speed-Test"
+  web_url: "https://openspeedtest.com/"
+  freshports_url: ""
+  user: "bsd"
+  mlock: false
+  upstream_binary: true
+  
+  docs:
+    env:
+      PUID: "User ID for the application process"
+      PGID: "Group ID for the application process"
+      TZ: "Timezone for the container"
+    ports:
+      3000: "Web UI"
+
+services:
+  openspeedtest:
+    image: ghcr.io/daemonless/openspeedtest:latest
+    container_name: openspeedtest
+    restart: unless-stopped
+    
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=UTC
+
+    ports:
+      - "3005:3000"
