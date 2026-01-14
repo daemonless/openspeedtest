@@ -22,7 +22,6 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=UTC
-    volumes:
     ports:
       - 3005:3005
     restart: unless-stopped
@@ -50,15 +49,14 @@ Access at: `http://localhost:3005`
     state: started
     restart_policy: always
     env:
-      PUID: "1000"
-      PGID: "1000"
-      TZ: "UTC"
+      PUID: "@PUID@"
+      PGID: "@PGID@"
+      TZ: "@TZ@"
     ports:
       - "3005:3005"
 ```
 
 ## Configuration
-
 ### Environment Variables
 
 | Variable | Default | Description |
@@ -66,12 +64,6 @@ Access at: `http://localhost:3005`
 | `PUID` | `1000` | User ID for the application process |
 | `PGID` | `1000` | Group ID for the application process |
 | `TZ` | `UTC` | Timezone for the container |
-
-### Volumes
-
-| Path | Description |
-|------|-------------|
-
 ### Ports
 
 | Port | Protocol | Description |
