@@ -8,7 +8,6 @@ ARG BASE_VERSION=15
 FROM ghcr.io/daemonless/nginx-base:${BASE_VERSION}
 
 ARG FREEBSD_ARCH=amd64
-ARG OPENSPEEDTEST_VERSION=2.0
 ARG PACKAGES="ca_root_nss"
 ARG UPSTREAM_URL="https://api.github.com/repos/openspeedtest/Docker-Image/releases/latest"
 ARG UPSTREAM_JQ=".tag_name"
@@ -22,7 +21,7 @@ LABEL org.opencontainers.image.title="OpenSpeedTest" \
       org.opencontainers.image.source="https://github.com/daemonless/openspeedtest" \
       org.opencontainers.image.url="https://openspeedtest.com/" \
       org.opencontainers.image.documentation="https://github.com/openspeedtest/Speed-Test" \
-      org.opencontainers.image.version="${OPENSPEEDTEST_VERSION}" \
+      org.opencontainers.image.version="dynamic" \
       org.opencontainers.image.licenses="MIT" \
       org.opencontainers.image.vendor="daemonless" \
       org.opencontainers.image.authors="daemonless" \
@@ -35,16 +34,18 @@ LABEL org.opencontainers.image.title="OpenSpeedTest" \
       io.daemonless.healthcheck-url="${HEALTHCHECK_ENDPOINT}" \
       io.daemonless.packages="${PACKAGES}"
 
-# Download OpenSpeedTest files
-RUN pkg update && pkg install -y ${PACKAGES} && \
-    pkg clean -ay && \
-    rm -rf /var/cache/pkg/* /var/db/pkg/repos/* && \
-    fetch -o /tmp/speedtest.tar.gz https://github.com/openspeedtest/Speed-Test/archive/refs/heads/main.tar.gz && \
+# Download OpenSpeedTest files (fetch latest release version from Docker-Image repo)
+RUN pkg update && pkg install -y ${PACKAGES} jq && \
+    VERSION=$(fetch -qo - https://api.github.com/repos/openspeedtest/Docker-Image/releases/latest | jq -r '.tag_name' | sed 's/^v//') && \
+    fetch -o /tmp/speedtest.tar.gz "https://api.github.com/repos/openspeedtest/Docker-Image/tarball/v${VERSION}" && \
     mkdir -p /usr/local/www/openspeedtest /app && \
-    tar -xzf /tmp/speedtest.tar.gz -C /usr/local/www/openspeedtest --strip-components=1 && \
+    tar -xzf /tmp/speedtest.tar.gz --strip-components=3 -C /usr/local/www/openspeedtest '*/files/www/*' && \
     rm /tmp/speedtest.tar.gz && \
-    echo "${OPENSPEEDTEST_VERSION}" > /app/version && \
-    chown -R bsd:bsd /usr/local/www/openspeedtest
+    echo "${VERSION}" > /app/version && \
+    chown -R bsd:bsd /usr/local/www/openspeedtest && \
+    pkg delete -y jq && \
+    pkg clean -ay && \
+    rm -rf /var/cache/pkg/* /var/db/pkg/repos/*
 
 # Copy custom nginx config for OpenSpeedTest
 COPY root/ /
