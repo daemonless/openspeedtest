@@ -11,6 +11,7 @@ Self-hosted HTML5 Network Speed Test on FreeBSD.
 |---|---|
 | **Port** | 3005 |
 | **Registry** | `ghcr.io/daemonless/openspeedtest` |
+| **Docs** | [daemonless.io/images/openspeedtest](https://daemonless.io/images/openspeedtest/) |
 | **Source** | [https://github.com/openspeedtest/Speed-Test](https://github.com/openspeedtest/Speed-Test) |
 | **Website** | [https://openspeedtest.com/](https://openspeedtest.com/) |
 
