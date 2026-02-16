@@ -1,12 +1,12 @@
 {
   "image": "openspeedtest",
-  "generated": "2026-02-14T14:40:48Z",
+  "generated": "2026-02-16T18:16:30Z",
   "tags": {
     "latest": {
       "arch": "amd64",
       "app_version": "2.0.5",
       "source": "upstream",
-      "generated": "2026-02-14T14:35:44Z",
+      "generated": "2026-02-16T18:16:15Z",
       "packages": {
         "freebsd": [
           {
