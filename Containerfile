@@ -11,7 +11,7 @@ ARG FREEBSD_ARCH=amd64
 ARG PACKAGES="ca_root_nss"
 ARG UPSTREAM_URL="https://api.github.com/repos/openspeedtest/Docker-Image/releases/latest"
 ARG UPSTREAM_JQ=".tag_name"
-ARG HEALTHCHECK_ENDPOINT="http://localhost:3005/daemonless-ping"
+ARG HEALTHCHECK_ENDPOINT="http://localhost:3000/daemonless-ping"
 
 ENV HEALTHCHECK_URL="${HEALTHCHECK_ENDPOINT}"
 
@@ -26,7 +26,7 @@ LABEL org.opencontainers.image.title="OpenSpeedTest" \
       org.opencontainers.image.vendor="daemonless" \
       org.opencontainers.image.authors="daemonless" \
       io.daemonless.category="Utilities" \
-      io.daemonless.port="3005" \
+      io.daemonless.port="3000" \
       io.daemonless.arch="${FREEBSD_ARCH}" \
       io.daemonless.base="nginx" \
       io.daemonless.upstream-url="${UPSTREAM_URL}" \
@@ -53,6 +53,6 @@ COPY root/ /
 RUN chmod +x /etc/cont-init.d/* 2>/dev/null || true
 
 # --- Expose (Injected by Generator) ---
-EXPOSE 3005
+EXPOSE 3000
 
 # --- Volumes (Injected by Generator) ---

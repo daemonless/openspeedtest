@@ -5,15 +5,27 @@ Source: dbuild templates
 
 # OpenSpeedTest
 
+[![Build Status](https://img.shields.io/github/actions/workflow/status/daemonless/openspeedtest/build.yaml?style=flat-square&label=Build&color=green)](https://github.com/daemonless/openspeedtest/actions)
+[![Last Commit](https://img.shields.io/github/last-commit/daemonless/openspeedtest?style=flat-square&label=Last+Commit&color=blue)](https://github.com/daemonless/openspeedtest/commits)
+
 Self-hosted HTML5 Network Speed Test on FreeBSD.
 
 | | |
 |---|---|
-| **Port** | 3005 |
+| **Port** | 3000 |
 | **Registry** | `ghcr.io/daemonless/openspeedtest` |
-| **Docs** | [daemonless.io/images/openspeedtest](https://daemonless.io/images/openspeedtest/) |
 | **Source** | [https://github.com/openspeedtest/Speed-Test](https://github.com/openspeedtest/Speed-Test) |
 | **Website** | [https://openspeedtest.com/](https://openspeedtest.com/) |
+
+## Version Tags
+
+| Tag | Description | Best For |
+| :--- | :--- | :--- |
+| `latest` | **Upstream Binary**. Built from official release. | Most users. Matches Linux Docker behavior. |
+
+## Prerequisites
+
+Before deploying, ensure your host environment is ready. See the [Quick Start Guide](https://daemonless.io/guides/quick-start) for host setup instructions.
 
 ## Deployment
 
@@ -29,21 +41,59 @@ services:
       - PGID=1000
       - TZ=UTC
     ports:
-      - 3005:3005
+      - 3000:3000
     restart: unless-stopped
+```
+
+### AppJail Director
+
+**.env**:
+
+```
+DIRECTOR_PROJECT=openspeedtest
+PUID=1000
+PGID=1000
+TZ=UTC
+```
+
+**appjail-director.yml**:
+
+```yaml
+options:
+  - virtualnet: ':<random> default'
+  - nat:
+services:
+  openspeedtest:
+    name: openspeedtest
+    options:
+      - container: 'boot args:--pull'
+    oci:
+      user: root
+      environment:
+        - PUID: !ENV '${PUID}'
+        - PGID: !ENV '${PGID}'
+        - TZ: !ENV '${TZ}'
+```
+
+**Makejail**:
+
+```
+ARG tag=latest
+
+OPTION overwrite=force
+OPTION from=ghcr.io/daemonless/openspeedtest:${tag}
 ```
 
 ### Podman CLI
 
 ```bash
 podman run -d --name openspeedtest \
-  -p 3005:3005 \
-  -e PUID=@PUID@ \
-  -e PGID=@PGID@ \
-  -e TZ=@TZ@ \
+  -p 3000:3000 \
+  -e PUID=1000 \
+  -e PGID=1000 \
+  -e TZ=UTC \
   ghcr.io/daemonless/openspeedtest:latest
 ```
-Access at: `http://localhost:3005`
 
 ### Ansible
 
@@ -55,14 +105,17 @@ Access at: `http://localhost:3005`
     state: started
     restart_policy: always
     env:
-      PUID: "@PUID@"
-      PGID: "@PGID@"
-      TZ: "@TZ@"
+      PUID: "1000"
+      PGID: "1000"
+      TZ: "UTC"
     ports:
-      - "3005:3005"
+      - "3000:3000"
 ```
 
-## Configuration
+Access at: `http://localhost:3000`
+
+## Parameters
+
 ### Environment Variables
 
 | Variable | Default | Description |
@@ -70,14 +123,17 @@ Access at: `http://localhost:3005`
 | `PUID` | `1000` | User ID for the application process |
 | `PGID` | `1000` | Group ID for the application process |
 | `TZ` | `UTC` | Timezone for the container |
+
 ### Ports
 
 | Port | Protocol | Description |
 |------|----------|-------------|
-| `3005` | TCP |  |
+| `3000` | TCP | Web UI |
 
-## Notes
+**Architectures:** amd64
+**User:** `bsd` (UID/GID via PUID/PGID, defaults to 1000:1000)
+**Base:** FreeBSD 15.0
 
-- **Architectures:** amd64
-- **User:** `bsd` (UID/GID set via PUID/PGID)
-- **Base:** Built on `ghcr.io/daemonless/base` (FreeBSD)
+---
+
+Need help? Join our [Discord](https://discord.gg/Kb9tkhecZT) community.
