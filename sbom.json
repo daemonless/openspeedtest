@@ -1,13 +1,13 @@
 {
+  "generated": "2026-04-13T17:54:35Z",
   "image": "openspeedtest",
-  "generated": "2026-03-28T16:42:11Z",
   "tags": {
     "latest": {
-      "arch": "amd64",
       "app_version": "2.0.5",
-      "source": "upstream",
-      "generated": "2026-03-28T16:39:45Z",
+      "arch": "amd64",
+      "generated": "2026-04-13T17:53:15Z",
       "packages": {
+        "dotnet": [],
         "freebsd": [
           {
             "name": "FreeBSD-audit-lib",
@@ -147,7 +147,7 @@
           },
           {
             "name": "pkg",
-            "version": "2.5.1"
+            "version": "2.6.2_1"
           },
           {
             "name": "s6",
@@ -162,7 +162,6 @@
             "version": "2.14.4.0"
           }
         ],
-        "dotnet": [],
         "go": [],
         "java": [],
         "node": [],
@@ -171,9 +170,10 @@
         "ruby": [],
         "rust": []
       },
+      "source": "upstream",
       "summary": {
-        "freebsd": 38,
         "dotnet": 0,
+        "freebsd": 38,
         "go": 0,
         "java": 0,
         "node": 0,
