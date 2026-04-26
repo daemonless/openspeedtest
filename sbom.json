@@ -1,11 +1,11 @@
 {
-  "generated": "2026-04-13T17:54:35Z",
+  "generated": "2026-04-26T23:37:15Z",
   "image": "openspeedtest",
   "tags": {
     "latest": {
       "app_version": "2.0.5",
       "arch": "amd64",
-      "generated": "2026-04-13T17:53:15Z",
+      "generated": "2026-04-26T23:35:56Z",
       "packages": {
         "dotnet": [],
         "freebsd": [
@@ -131,11 +131,11 @@
           },
           {
             "name": "execline",
-            "version": "2.9.7.0"
+            "version": "2.9.8.1"
           },
           {
             "name": "nginx",
-            "version": "1.28.0_10,3"
+            "version": "1.28.3,3"
           },
           {
             "name": "oniguruma",
@@ -151,15 +151,11 @@
           },
           {
             "name": "s6",
-            "version": "2.13.2.0"
-          },
-          {
-            "name": "s6-rc",
-            "version": "0.5.6.0"
+            "version": "2.14.0.1"
           },
           {
             "name": "skalibs",
-            "version": "2.14.4.0"
+            "version": "2.14.5.1"
           }
         ],
         "go": [],
@@ -173,7 +169,7 @@
       "source": "upstream",
       "summary": {
         "dotnet": 0,
-        "freebsd": 38,
+        "freebsd": 37,
         "go": 0,
         "java": 0,
         "node": 0,
@@ -181,7 +177,7 @@
         "python": 0,
         "ruby": 0,
         "rust": 0,
-        "total": 38
+        "total": 37
       }
     }
   }
