@@ -1,11 +1,11 @@
 {
-  "generated": "2026-07-07T08:51:31Z",
+  "generated": "2026-07-18T23:54:14Z",
   "image": "openspeedtest",
   "tags": {
     "latest": {
       "app_version": "2.0.5",
       "arch": "amd64",
-      "generated": "2026-07-07T08:50:12Z",
+      "generated": "2026-07-18T23:52:54Z",
       "packages": {
         "dotnet": [],
         "freebsd": [
@@ -78,6 +78,10 @@
             "version": "15.0"
           },
           {
+            "name": "FreeBSD-locales",
+            "version": "15.0"
+          },
+          {
             "name": "FreeBSD-mtree",
             "version": "15.0"
           },
@@ -135,7 +139,7 @@
           },
           {
             "name": "ca_root_nss",
-            "version": "3.124"
+            "version": "3.125"
           },
           {
             "name": "execline",
@@ -143,7 +147,7 @@
           },
           {
             "name": "nginx",
-            "version": "1.30.3,3"
+            "version": "1.30.3_2,3"
           },
           {
             "name": "oniguruma",
@@ -155,7 +159,7 @@
           },
           {
             "name": "pkg",
-            "version": "2.6.2_1"
+            "version": "2.7.5"
           },
           {
             "name": "s6",
@@ -177,7 +181,7 @@
       "source": "upstream",
       "summary": {
         "dotnet": 0,
-        "freebsd": 39,
+        "freebsd": 40,
         "go": 0,
         "java": 0,
         "node": 0,
@@ -185,7 +189,7 @@
         "python": 0,
         "ruby": 0,
         "rust": 0,
-        "total": 39
+        "total": 40
       }
     }
   }
