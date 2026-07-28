@@ -1,11 +1,11 @@
 {
-  "generated": "2026-07-18T23:54:14Z",
+  "generated": "2026-07-28T20:19:13Z",
   "image": "openspeedtest",
   "tags": {
     "latest": {
       "app_version": "2.0.5",
       "arch": "amd64",
-      "generated": "2026-07-18T23:52:54Z",
+      "generated": "2026-07-28T20:17:55Z",
       "packages": {
         "dotnet": [],
         "freebsd": [
