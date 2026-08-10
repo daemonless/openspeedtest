@@ -10,7 +10,6 @@ Source: dbuild templates
 
 Self-hosted HTML5 Network Speed Test on FreeBSD.
 
-
 | | |
 |---|---|
 | **Port** | 3000 |
@@ -19,13 +18,11 @@ Self-hosted HTML5 Network Speed Test on FreeBSD.
 | **Website** | [https://openspeedtest.com/](https://openspeedtest.com/) |
 
 ## Version Tags
-
 | Tag | Description | Best For |
 | :--- | :--- | :--- |
 | `latest` | **Upstream Binary**. Built from official release. | Most users. Matches Linux Docker behavior. |
 
 ## Prerequisites
-
 Before deploying, ensure your host environment is ready. See the [Quick Start Guide](https://daemonless.io/guides/quick-start) for host setup instructions.
 
 ## Deployment
@@ -35,22 +32,23 @@ Before deploying, ensure your host environment is ready. See the [Quick Start Gu
 ```yaml
 services:
   openspeedtest:
-    image: ghcr.io/daemonless/openspeedtest:latest
+    image: "ghcr.io/daemonless/openspeedtest:latest"
     container_name: openspeedtest
     environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=UTC
+      - PUID=1000  # User ID for the application process
+      - PGID=1000  # Group ID for the application process
+      - TZ=UTC  # Timezone for the container
     ports:
-      - 3000:3000
+      - "3000:3000"
     restart: unless-stopped
 ```
 
 ### AppJail Director
-
 **.env**:
 
 ```
+# .env
+
 DIRECTOR_PROJECT=openspeedtest
 PUID=1000
 PGID=1000
@@ -60,6 +58,8 @@ TZ=UTC
 **appjail-director.yml**:
 
 ```yaml
+# appjail-director.yml
+
 options:
   - virtualnet: ':<random> default'
   - nat:
@@ -68,6 +68,7 @@ services:
     name: openspeedtest
     options:
       - container: 'boot args:--pull'
+      - expose: '3000:3000 proto:tcp'
     oci:
       user: root
       environment:
@@ -79,11 +80,14 @@ services:
 **Makejail**:
 
 ```
+# Makejail
+
 ARG tag=latest
 
 OPTION overwrite=force
 OPTION from=ghcr.io/daemonless/openspeedtest:${tag}
 ```
+**Note**: Exposing ports in AppJail means that your service can be reached from remote hosts. If that is not your intention, do not expose the ports and communicate with the service using the IPv4 address assigned by the virtual network.
 
 ### Podman CLI
 
@@ -96,13 +100,29 @@ podman run -d --name openspeedtest \
   ghcr.io/daemonless/openspeedtest:latest
 ```
 
+### AppJail
+
+```bash
+appjail oci run -Pd \
+  -o overwrite=force \
+  -o container="args:--pull" \
+  -o virtualnet=":<random> default" \
+  -o nat \
+  -o expose="3000:3000 proto:tcp" \
+  -e PUID=1000 \
+  -e PGID=1000 \
+  -e TZ=UTC \
+  ghcr.io/daemonless/openspeedtest:latest openspeedtest
+```
+**Note**: Exposing ports in AppJail means that your service can be reached from remote hosts. If that is not your intention, do not expose the ports and communicate with the service using the IPv4 address assigned by the virtual network.
+
 ### Ansible
 
 ```yaml
 - name: Deploy openspeedtest
   containers.podman.podman_container:
     name: openspeedtest
-    image: ghcr.io/daemonless/openspeedtest:latest
+    image: "ghcr.io/daemonless/openspeedtest:latest"
     state: started
     restart_policy: always
     env:
@@ -133,7 +153,7 @@ Access at: `http://localhost:3000`
 
 **Architectures:** amd64
 **User:** `bsd` (UID/GID via PUID/PGID, defaults to 1000:1000)
-**Base:** FreeBSD 15.0
+**Base:** FreeBSD 15
 
 ---
 
