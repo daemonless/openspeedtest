@@ -20,7 +20,7 @@ Self-hosted HTML5 Network Speed Test on FreeBSD.
 ## Version Tags
 | Tag | Description | Best For |
 | :--- | :--- | :--- |
-| `latest` | **Upstream Binary**. Built from official release. | Most users. Matches Linux Docker behavior. |
+| `latest` | **Upstream Binary**. Built from official release. | Most users — recommended. |
 
 ## Prerequisites
 Before deploying, ensure your host environment is ready. See the [Quick Start Guide](https://daemonless.io/guides/quick-start) for host setup instructions.

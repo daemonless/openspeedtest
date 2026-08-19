@@ -1,11 +1,11 @@
 {
-  "generated": "2026-08-10T07:32:31Z",
+  "generated": "2026-08-19T18:25:49Z",
   "image": "openspeedtest",
   "tags": {
     "latest": {
       "app_version": "2.0.5",
       "arch": "amd64",
-      "generated": "2026-08-10T07:30:42Z",
+      "generated": "2026-08-19T18:25:06Z",
       "packages": {
         "dotnet": [],
         "freebsd": [
@@ -245,7 +245,7 @@
               "MPL20"
             ],
             "name": "ca_root_nss",
-            "version": "3.125"
+            "version": "3.126.1"
           },
           {
             "licenses": [
