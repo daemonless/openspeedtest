@@ -7,6 +7,7 @@ Source: dbuild templates
 
 [![Build Status](https://img.shields.io/github/actions/workflow/status/daemonless/openspeedtest/build.yaml?style=flat-square&label=Build&color=green)](https://github.com/daemonless/openspeedtest/actions)
 [![Last Commit](https://img.shields.io/github/last-commit/daemonless/openspeedtest?style=flat-square&label=Last+Commit&color=blue)](https://github.com/daemonless/openspeedtest/commits)
+[![OCI Pulls](https://img.shields.io/docker/pulls/daemonless/openspeedtest?style=flat-square&label=OCI+Pulls&color=blue)](https://hub.docker.com/r/daemonless/openspeedtest)
 
 Self-hosted HTML5 Network Speed Test on FreeBSD.
 
@@ -70,7 +71,7 @@ services:
   openspeedtest:
     name: openspeedtest
     options:
-      - container: 'boot args:--pull'
+      - container: 'args:--pull'
       - expose: '3000:3000 proto:tcp'
     oci:
       user: root
@@ -87,13 +88,18 @@ services:
 
 ARG tag=latest
 
+OPTION container=boot
 OPTION overwrite=force
 OPTION from=ghcr.io/daemonless/openspeedtest:${tag}
 ```
 
 Save the files above, then run `appjail-director up`.
 
-**Note**: Exposing ports in AppJail means that your service can be reached from remote hosts. If that is not your intention, do not expose the ports and communicate with the service using the IPv4 address assigned by the virtual network.
+
+> [!WARNING]
+> Exposing ports in AppJail means that your service can be reached from remote hosts. If that is not your intention, do not expose the ports and communicate with the service using the jail's IPv4 address or hostname assigned by the virtual network.
+>
+> To avoid exposing ports, just remove the `expose` option in your `appjail-director.yml` or from your command-line arguments.
 
 ### Podman CLI
 
@@ -110,6 +116,7 @@ Save as `run.sh`, then run `sh run.sh`.
 
 ### AppJail
 
+
 ```bash
 appjail oci run -Pd \
   -o overwrite=force \
@@ -123,28 +130,33 @@ appjail oci run -Pd \
   ghcr.io/daemonless/openspeedtest:latest openspeedtest
 ```
 
-Save as `run.sh`, then run `sh run.sh`.
+Save the files above, then run `sh run.sh`.
 
-**Note**: Exposing ports in AppJail means that your service can be reached from remote hosts. If that is not your intention, do not expose the ports and communicate with the service using the IPv4 address assigned by the virtual network.
+
+> [!WARNING]
+> Exposing ports in AppJail means that your service can be reached from remote hosts. If that is not your intention, do not expose the ports and communicate with the service using the jail's IPv4 address or hostname assigned by the virtual network.
+>
+> To avoid exposing ports, just remove the `expose` option in your `appjail-director.yml` or from your command-line arguments.
 
 ### Bastille
 
 > [!WARNING]
-> Bastille's OCI support is **experimental**. It requires `buildah`, shares the host network stack (`inherit`), and persists image-declared volumes under `--data-path`.
+> Bastille's OCI support is **experimental**. It requires `buildah` and shares the host network stack (`inherit`). Mount volumes with `--volume HOST JAIL`; without it, image-declared volumes are stored under `${bastille_volumesdir}/${jail}`.
 
 ```yaml
 services:
   openspeedtest:
+    name: openspeedtest
     image: "ghcr.io/daemonless/openspeedtest:latest"
-    container_name: openspeedtest
-    network_mode: host  # jail shares host networking
+    network:
+      - mode: host
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=UTC
 ```
 
-Save as `podman-compose.yml`, then run `bastille up`. Or via CLI:
+Save as `bastille-compose.yml`, then run `bastille up`. Or via CLI:
 
 ```bash
 bastille create -O \
