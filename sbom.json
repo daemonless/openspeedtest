@@ -1,11 +1,11 @@
 {
-  "generated": "2026-09-14T16:19:47Z",
+  "generated": "2026-09-21T22:03:05Z",
   "image": "openspeedtest",
   "tags": {
     "latest": {
       "app_version": "2.0.5",
       "arch": "amd64",
-      "generated": "2026-09-14T16:19:14Z",
+      "generated": "2026-09-21T22:00:19Z",
       "packages": {
         "dotnet": [],
         "freebsd": [
@@ -49,6 +49,13 @@
               "CDDL-1.0"
             ],
             "name": "FreeBSD-ctf-lib",
+            "version": "15.1"
+          },
+          {
+            "licenses": [
+              "BSD-3-Clause"
+            ],
+            "name": "FreeBSD-dhclient",
             "version": "15.1"
           },
           {
@@ -175,6 +182,13 @@
               "BSD2CLAUSE"
             ],
             "name": "FreeBSD-rc",
+            "version": "15.1"
+          },
+          {
+            "licenses": [
+              "BSD2CLAUSE"
+            ],
+            "name": "FreeBSD-resolvconf",
             "version": "15.1"
           },
           {
@@ -308,7 +322,7 @@
       "source": "upstream",
       "summary": {
         "dotnet": 0,
-        "freebsd": 41,
+        "freebsd": 43,
         "go": 0,
         "java": 0,
         "node": 0,
@@ -316,7 +330,7 @@
         "python": 0,
         "ruby": 0,
         "rust": 0,
-        "total": 41
+        "total": 43
       }
     }
   }
