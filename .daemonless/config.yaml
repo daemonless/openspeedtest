@@ -1,4 +1,8 @@
 icon: ':material-speedometer:'
+build:
+  architectures:
+    - amd64
+    - aarch64
 cit:
   mode: screenshot
   port: 3000
