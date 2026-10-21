@@ -1,11 +1,11 @@
 {
-  "generated": "2026-10-20T22:19:36Z",
+  "generated": "2026-10-21T20:49:32Z",
   "image": "openspeedtest",
   "tags": {
     "latest-amd64": {
       "app_version": "2.0.5",
       "arch": "amd64",
-      "generated": "2026-10-20T22:18:35Z",
+      "generated": "2026-10-21T20:48:47Z",
       "packages": {
         "dotnet": [],
         "freebsd": [
@@ -92,13 +92,6 @@
             ],
             "name": "FreeBSD-libcasper",
             "version": "15.1p4"
-          },
-          {
-            "licenses": [
-              "BSD2CLAUSE"
-            ],
-            "name": "FreeBSD-libcompiler_rt-dev",
-            "version": "15.1"
           },
           {
             "licenses": [
@@ -263,17 +256,10 @@
           },
           {
             "licenses": [
-              "ISCL"
-            ],
-            "name": "execline",
-            "version": "2.9.8.1"
-          },
-          {
-            "licenses": [
               "BSD2CLAUSE"
             ],
             "name": "nginx",
-            "version": "1.30.5_2,3"
+            "version": "1.30.6_1,3"
           },
           {
             "licenses": [
@@ -295,20 +281,6 @@
             ],
             "name": "pkg",
             "version": "2.8.4"
-          },
-          {
-            "licenses": [
-              "ISCL"
-            ],
-            "name": "s6",
-            "version": "2.14.0.1"
-          },
-          {
-            "licenses": [
-              "ISCL"
-            ],
-            "name": "skalibs",
-            "version": "2.14.5.1"
           }
         ],
         "go": [],
@@ -322,7 +294,7 @@
       "source": "upstream",
       "summary": {
         "dotnet": 0,
-        "freebsd": 43,
+        "freebsd": 39,
         "go": 0,
         "java": 0,
         "node": 0,
@@ -330,7 +302,7 @@
         "python": 0,
         "ruby": 0,
         "rust": 0,
-        "total": 43
+        "total": 39
       }
     }
   }
