@@ -4,8 +4,8 @@
 # Source: Containerfile.j2
 # --------------------------------------------------------------------------
 
-ARG BASE_VERSION=15
-FROM ghcr.io/daemonless/nginx-base:${BASE_VERSION}
+ARG NGINX_TAG=pkg-latest
+FROM ghcr.io/daemonless/nginx:${NGINX_TAG}
 
 ARG FREEBSD_ARCH=amd64
 ARG PACKAGES="ca_root_nss"
@@ -50,7 +50,8 @@ RUN pkg update && pkg install -y ${PACKAGES} jq && \
 # Copy custom nginx config for OpenSpeedTest
 COPY root/ /
 
-RUN chmod +x /etc/cont-init.d/* 2>/dev/null || true
+# nginx -t leaves its pid and temp dirs, root-owned, in /tmp.
+RUN nginx -t && rm -rf /tmp/*
 
 # --- Expose (Injected by Generator) ---
 EXPOSE 3000
