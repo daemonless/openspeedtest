@@ -1,11 +1,11 @@
 {
-  "generated": "2026-10-21T20:49:32Z",
+  "generated": "2026-10-25T10:04:07Z",
   "image": "openspeedtest",
   "tags": {
     "latest-amd64": {
-      "app_version": "2.0.5",
+      "app_version": "2.0.8",
       "arch": "amd64",
-      "generated": "2026-10-21T20:48:47Z",
+      "generated": "2026-10-25T10:03:39Z",
       "packages": {
         "dotnet": [],
         "freebsd": [
@@ -252,14 +252,14 @@
               "MPL20"
             ],
             "name": "ca_root_nss",
-            "version": "3.131"
+            "version": "3.131.1"
           },
           {
             "licenses": [
               "BSD2CLAUSE"
             ],
             "name": "nginx",
-            "version": "1.30.6_1,3"
+            "version": "1.30.6_4,3"
           },
           {
             "licenses": [
