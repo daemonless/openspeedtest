@@ -1,11 +1,11 @@
 {
-  "generated": "2026-10-27T10:29:48Z",
+  "generated": "2026-11-02T17:30:26Z",
   "image": "openspeedtest",
   "tags": {
     "latest-aarch64": {
       "app_version": "2.0.8",
       "arch": "aarch64",
-      "generated": "2026-10-27T10:29:16Z",
+      "generated": "2026-11-02T17:29:19Z",
       "packages": {
         "dotnet": [],
         "freebsd": [
@@ -189,7 +189,7 @@
               "BSD2CLAUSE"
             ],
             "name": "FreeBSD-runtime",
-            "version": "15.1p5"
+            "version": "15.1p6"
           },
           {
             "licenses": [
